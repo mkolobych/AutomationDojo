@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Coffe nemu tests', () => {
+
     test.beforeEach(async ({ page }) => {
         await page.goto('https://coffee-cart.app/');
     });
@@ -90,5 +91,4 @@ test.describe('Coffe nemu tests', () => {
         await expect(snackBarSuccess).toBeVisible();
         await expect(snackBarSuccess).toHaveText('Thanks for your purchase. Please check your email for payment.');
     });
-
 });
