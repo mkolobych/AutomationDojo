@@ -61,6 +61,5 @@ test.describe('Playwright tests', () => {
         await page.locator("//button[@class='DocSearch-Reset']").click();
 
         await expect(page.locator('//div[contains(text(),"Playwright Test")]')).not.toBeVisible();
-
     });
 });
