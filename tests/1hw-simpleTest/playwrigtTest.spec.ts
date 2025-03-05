@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Playwright tests', () => {
+test.describe('Menu tests', () => {
 
     test.beforeEach(async ({ page }) => {
         await page.goto('https://playwright.dev/');
@@ -17,7 +17,7 @@ test.describe('Playwright tests', () => {
     });
 
     test("the user can return to the main Playwright page", async ({ page }) => {
-        await page.locator("//a[contains(text(), 'Community')]").click();
+        await page.locator("//a[normalize-space()='Community']").click();
 
         await expect(page).toHaveURL("https://playwright.dev/community/welcome");
 
