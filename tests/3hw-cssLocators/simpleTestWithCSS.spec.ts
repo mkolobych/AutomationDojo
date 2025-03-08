@@ -60,10 +60,13 @@ test.describe("Cart tests", () => {
             .getByText("Cappuccino")
         await expect(listItem).toBeVisible();
 
-        await page.locator("li[class='list-item'] div div[class='unit-controller'] button[aria-label='Remove one Cappuccino']").click(); ////li[@class='list-item']/div/div/button[2]
+        await page
+            .locator("[aria-label='Remove one Cappuccino']")
+            .filter({ visible: true })
+            .click();
 
         await expect(page.locator(".list")).toContainText("No coffee, go add some.");
-        await expect(page.locator(".pay'")).not.toBeVisible();
-        await expect(page.locator("//*[@id='app']/div[2]/div/ul")).not.toBeVisible();
+        await expect(page.locator(".pay")).not.toBeVisible();
+        await expect(page.locator("//*[@class ='list-header']/following-sibling::li")).not.toBeVisible();
     });
 });

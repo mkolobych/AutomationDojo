@@ -8,8 +8,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.50.1",
-    "@types/node": "^22.13.7",
-    "asdwsdfrf-1212": "^1.0.0"
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.7"
   }
 }
