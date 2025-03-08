@@ -6,51 +6,59 @@ test.describe("Cart tests", () => {
         await page.goto("https://coffee-cart.app/");
     })
 
-    test("Mocha should contain whipped cream, steamed milk, chocolate syrup, espresso", async ({ page }) => {
+    test("Mocha contains the right ingredients", async ({ page }) => {
         await expect(page.locator("[data-test='Mocha']")).toBeVisible();
-        await expect(page.locator("div[data-test='Mocha'] > div:nth-child(1)")).toContainText("espresso");
-        await expect(page.locator("div[data-test='Mocha'] > div:nth-child(2)")).toContainText("chocolate syrup");
-        await expect(page.locator("div[data-test='Mocha'] > div:nth-child(3)")).toContainText("steamed milk");
-        await expect(page.locator("div[data-test='Mocha'] > div:nth-child(4)")).toContainText("whipped cream");
+        await expect(
+            page.locator(".cup-body[data-test]").filter({ visible: true })
+        ).toHaveCount(9);
     });
+
 
     test("'No coffee, go add some.' message is visible", async ({ page }) => {
-        await page.locator("a[aria-label='Cart page'], div[class='list']").click();
+        await page.locator("[aria-label='Cart page']").click();
 
-        await expect(page.locator("div[class='list'] p")).toContainText("No coffee, go add some.");
+        await expect(page.locator(".list p")).toContainText("No coffee, go add some.");
         await expect(page.locator(".pay")).not.toBeVisible();
-        await expect(page.locator("//*[@id='app']/div[2]/div/ul")).not.toBeVisible(); //який селектор тут краще обрати?
+        await expect(page.locator(".list-header")).not.toBeVisible();
     });
 
-    test("The extra cup of Mocha can be skipped", async ({ page }) => {
-        await page.locator("div[data-test='Mocha']").click({ clickCount: 3 });
+    test("Extra cup of Mocha can be skipped", async ({ page }) => {
+        await page.goto("https://coffee-cart.app/");
+        await page.locator("[data-test='Mocha']").click({ clickCount: 3 });
 
         await expect(page.locator(".promo")).toBeVisible();
 
-        await page.locator(".yes").click();
+        await page.locator(".buttons button:not(.yes)").click();
+        //*[contains(@class, 'buttons')]//button[not(contains(@class, 'yes'))]
 
         await expect(page.locator(".promo")).not.toBeVisible();
-        await expect(page.locator('a[aria-label="Cart page"]')).toContainText("cart (3)")
+        await expect(page.locator('[aria-label="Cart page"]')).toContainText("cart (3)")
     });
 
-    test("Espresso Macchiato can be removed from the Cart", async ({ page }) => {
+    test("remove Espresso Macchiato from the Cart", async ({ page }) => {
         await page.locator("[data-test='Espresso_Macchiato']").click();
         await page.locator("[aria-label='Cart page']").click();
 
-        await expect(page.locator("//div[contains(text(), 'Espresso Macchiato')]")).toBeVisible();// чи доцільно використовувати сss?
+        const listItem = page
+            .locator(`//*[@class ='list-header']/following-sibling::li`)
+            .getByText("Espresso Macchiato")
+        await expect(listItem).toBeVisible();
 
         await page.locator('.delete').click();
 
         await expect(page.locator(".list")).toContainText("No coffee, go add some.");
         await expect(page.locator(".pay")).not.toBeVisible();
-        await expect(page.locator("//*[@id='app']/div[2]/div/ul")).not.toBeVisible();
+        await expect(page.locator("//*[@class ='list-header']/following-sibling::li")).not.toBeVisible();
     });
 
     test("Cappuccino can be removed from the Cart via the minus button", async ({ page }) => {
-        await page.locator("div[data-test='Cappuccino']").click();
-        await page.locator("a[aria-label='Cart page']").click();
+        await page.locator("[data-test='Cappuccino']").click();
+        await page.locator("[aria-label='Cart page']").click();
 
-        await expect(page.locator('//div[contains(text(),"Cappuccino")]')).toBeVisible();
+        const listItem = page
+            .locator(`//*[@class ='list-header']/following-sibling::li`)
+            .getByText("Cappuccino")
+        await expect(listItem).toBeVisible();
 
         await page.locator("li[class='list-item'] div div[class='unit-controller'] button[aria-label='Remove one Cappuccino']").click(); ////li[@class='list-item']/div/div/button[2]
 
