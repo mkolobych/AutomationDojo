@@ -51,7 +51,7 @@ test.describe("Cart tests", () => {
         await expect(page.locator("//*[@class ='list-header']/following-sibling::li")).not.toBeVisible();
     });
 
-    test("Cappuccino can be removed from the Cart via the minus button", async ({ page }) => {
+    test("Remove Cappuccino from the Cart  via the minus button", async ({ page }) => {
         await page.locator("[data-test='Cappuccino']").click();
         await page.locator("[aria-label='Cart page']").click();
 
@@ -69,4 +69,17 @@ test.describe("Cart tests", () => {
         await expect(page.locator(".pay")).not.toBeVisible();
         await expect(page.locator("//*[@class ='list-header']/following-sibling::li")).not.toBeVisible();
     });
+
+    test("Send a paymant details", async ({ page }) => {
+        const name = "Marian";
+        const email = "marian@exmple.com";
+
+        await page.locator(".pay").click();
+        await page.locator("#name").pressSequentially(name);
+        await page.locator("#email").pressSequentially(email);
+        await page.locator("#submit-payment").click();
+
+        await expect(page.locator(".snackbar.success")).toBeVisible();
+        await expect(page.locator(".snackbar.success")).toHaveText("Thanks for your purchase. Please check your email for payment.")
+    })
 });
