@@ -81,5 +81,5 @@ test.describe("Cart tests", () => {
 
         await expect(page.locator(".snackbar.success")).toBeVisible();
         await expect(page.locator(".snackbar.success")).toHaveText("Thanks for your purchase. Please check your email for payment.")
-    })
+    });
 });
