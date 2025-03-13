@@ -1,82 +1,104 @@
 import { test, expect } from '@playwright/test'
 
+const name = "Marian";
+const email = "marian@exmple.com";
+const url = "https://coffee-cart.app/";
+
+
 test.describe("Cart test", () => {
 
-    test.beforeEach(async ({ page }) => {
-        await page.goto("https://coffee-cart.app/");
+    const getCartElements = (page) => ({
+        cartButton: page.locator("//*[@aria-label='Cart page']"),
+        emptyCartList: page.locator("//*[@class='list']"),
+        totalButton: page.locator("//button[@data-test='checkout']"),
+        headerList: page.locator("//*[@class='list-header']"),
+        mochaCup: page.locator("//*[@data-test='Mocha']"),
+        espressoMacchiatoCup: page.locator("//*[@data-test='Espresso_Macchiato']"),
+        cappuccinoCup: page.locator("//*[@data-test='Cappuccino']"),
+        extraCupBanner: page.locator("//*[@class='promo']"),
+        skipExtraCupButton: page.locator("//button[contains(text(),'skip.')]"),
+        orderListItems: page.locator(`//*[@class ='list-header']/following-sibling::li`),
+        orderCappuccinoList: page.locator(`//*[@class ='list-header']/following-sibling::li`),
+        deleteCupButton: page.locator('//button[@class="delete"]'),
+        removeCappuccinButton: page.locator("//button[@aria-label='Remove one Cappuccino']").filter({ visible: true }),
+        nameField: page.locator("//input[@id='name']"),
+        emailField: page.locator("//input[@id='email']"),
+        submitButton: page.locator("//button[@id='submit-payment']"),
+        successBanner: page.locator("//*[@class='snackbar success']"),
+        menuCups: page.locator("//*[@class='cup-body']").filter({ visible: true })
     });
 
-    test("Mocha contains the right ingredients", async ({ page }) => {
-        await expect(page.locator("[data-test='Mocha']")).toBeVisible();
-        await expect(
-            page.locator("//*[@class='cup-body']").filter({ visible: true })
-        ).toHaveCount(9);
+    test.beforeEach(async ({ page }) => {
+        await page.goto(url);
+    });
+
+    test("The menu contains nine cups of coffee", async ({ page }) => {
+        const elements = getCartElements(page);
+        await expect(elements.menuCups).toHaveCount(9);
     });
 
     test("'No coffee, go add some.' message is visible", async ({ page }) => {
-        await page.locator("//*[@aria-label='Cart page']").click();
+        const elements = getCartElements(page);
 
-        await expect(page.locator("//*[@class='list']")).toHaveText("No coffee, go add some.");
-        await expect(page.locator("//button[@data-test='checkout']")).not.toBeVisible();
-        await expect(page.locator("//*[@class='list - header']")).not.toBeVisible();
+        await elements.cartButton.click();
+
+        await expect(elements.emptyCartList).toHaveText("No coffee, go add some.");
+        await expect(elements.totalButton).not.toBeVisible();
+        await expect(elements.headerList).not.toBeVisible();
     });
 
     test("Extra cup of Mocha can be skipped", async ({ page }) => {
-        await page.locator("//*[@data-test='Mocha']").click({ clickCount: 3 });
+        const elements = getCartElements(page);
 
-        await expect(page.locator("//*[@class='promo']")).toBeVisible();
+        await elements.mochaCup.click({ clickCount: 3 });
 
-        await page.locator("//button[contains(text(),'skip.')]").click();
+        await expect(elements.extraCupBanner).toBeVisible();
 
-        await expect(page.locator("//*[@class='promo']")).not.toBeVisible();
-        await expect(page.locator('//*[@aria-label="Cart page"]')).toContainText("cart (3)");
+        await elements.skipExtraCupButton.click();
+
+        await expect(elements.extraCupBanner).not.toBeVisible();
+        await expect(elements.cartButton).toContainText("cart (3)");
     });
 
     test("remove Espresso Macchiato from the Cart", async ({ page }) => {
-        await page.locator("//*[@data-test='Espresso_Macchiato']").click();
-        await page.locator("//*[@aria-label='Cart page']").click();
+        const elements = getCartElements(page);
 
-        const listItem = page
-            .locator(`//*[@class ='list-header']/following-sibling::li`)
-            .getByText("Espresso Macchiato")
-        await expect(listItem).toBeVisible();
+        await elements.espressoMacchiatoCup.click();
+        await elements.cartButton.click();
 
-        await page.locator('//button[@class="delete"]').click();
+        await expect(elements.orderListItems.getByText("Espresso Macchiato")).toBeVisible();
 
-        await expect(page.locator("//*[@class='list']")).toContainText("No coffee, go add some.");
-        await expect(page.locator("//*[@data-test='checkout']")).not.toBeVisible();
-        await expect(page.locator("//*[@class ='list-header']/following-sibling::li")).not.toBeVisible();
+        await elements.deleteCupButton.click();
+
+        await expect(elements.emptyCartList).toContainText("No coffee, go add some.");
+        await expect(elements.totalButton).not.toBeVisible();
+        await expect(elements.orderListItems).not.toBeVisible();
     });
 
     test("Remove Cappuccino from the Cart  via the minus button", async ({ page }) => {
-        await page.locator("//*[@data-test='Cappuccino']").click();
-        await page.locator("//*[@aria-label='Cart page']").click();
+        const elements = getCartElements(page);
 
-        const listItem = page
-            .locator(`//*[@class ='list-header']/following-sibling::li`)
-            .getByText("Cappuccino")
-        await expect(listItem).toBeVisible();
+        await elements.cappuccinoCup.click();
+        await elements.cartButton.click();
 
-        await page
-            .locator("//button[@aria-label='Remove one Cappuccino']")
-            .filter({ visible: true })
-            .click();
+        await expect(elements.orderListItems.getByText("Cappuccino")).toBeVisible();
 
-        await expect(page.locator("//*[@class='list']")).toContainText("No coffee, go add some.");
-        await expect(page.locator("//button[@data-test='checkout']")).not.toBeVisible();
-        await expect(page.locator("//*[@class ='list-header']/following-sibling::li")).not.toBeVisible();
+        await elements.removeCappuccinButton.click();
+
+        await expect(elements.emptyCartList).toContainText("No coffee, go add some.");
+        await expect(elements.totalButton).not.toBeVisible();
+        await expect(elements.orderListItems).not.toBeVisible();
     });
 
     test("Send a paymant details", async ({ page }) => {
-        const name = "Marian";
-        const email = "marian@exmple.com";
+        const elements = getCartElements(page);
 
-        await page.locator("//button[@data-test='checkout']").click();
-        await page.locator("//input[@id='name']").pressSequentially(name);
-        await page.locator("//input[@id='email']").pressSequentially(email);
-        await page.locator("//button[@id='submit-payment']").click();
+        await elements.totalButton.click();
+        await elements.nameField.pressSequentially(name);
+        await elements.emailField.pressSequentially(email);
+        await elements.submitButton.click();
 
-        await expect(page.locator("//*[@class='snackbar success']")).toBeVisible();
-        await expect(page.locator("//*[@class='snackbar success']")).toHaveText("Thanks for your purchase. Please check your email for payment.")
+        await expect(elements.successBanner).toBeVisible();
+        await expect((elements.successBanner)).toHaveText("Thanks for your purchase. Please check your email for payment.")
     });
 });
