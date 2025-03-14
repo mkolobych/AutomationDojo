@@ -7,7 +7,7 @@ const url = "https://coffee-cart.app/";
 
 test.describe("Cart test", () => {
 
-    const getCartElements = (page) => ({
+    const getElements = (page) => ({
         cartButton: page.locator("//*[@aria-label='Cart page']"),
         emptyCartList: page.locator("//*[@class='list']"),
         totalButton: page.locator("//button[@data-test='checkout']"),
@@ -33,12 +33,12 @@ test.describe("Cart test", () => {
     });
 
     test("The menu contains nine cups of coffee", async ({ page }) => {
-        const elements = getCartElements(page);
+        const elements = getElements(page);
         await expect(elements.menuCups).toHaveCount(9);
     });
 
     test("'No coffee, go add some.' message is visible", async ({ page }) => {
-        const elements = getCartElements(page);
+        const elements = getElements(page);
 
         await elements.cartButton.click();
 
@@ -48,7 +48,7 @@ test.describe("Cart test", () => {
     });
 
     test("Extra cup of Mocha can be skipped", async ({ page }) => {
-        const elements = getCartElements(page);
+        const elements = getElements(page);
 
         await elements.mochaCup.click({ clickCount: 3 });
 
@@ -61,7 +61,7 @@ test.describe("Cart test", () => {
     });
 
     test("remove Espresso Macchiato from the Cart", async ({ page }) => {
-        const elements = getCartElements(page);
+        const elements = getElements(page);
 
         await elements.espressoMacchiatoCup.click();
         await elements.cartButton.click();
@@ -76,7 +76,7 @@ test.describe("Cart test", () => {
     });
 
     test("Remove Cappuccino from the Cart  via the minus button", async ({ page }) => {
-        const elements = getCartElements(page);
+        const elements = getElements(page);
 
         await elements.cappuccinoCup.click();
         await elements.cartButton.click();
@@ -91,7 +91,7 @@ test.describe("Cart test", () => {
     });
 
     test("Send a paymant details", async ({ page }) => {
-        const elements = getCartElements(page);
+        const elements = getElements(page);
 
         await elements.totalButton.click();
         await elements.nameField.pressSequentially(name);
