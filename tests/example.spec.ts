@@ -1,4 +1,4 @@
-import { test, expect, chromium, webkit } from '@playwright/test';
+import { test, expect, Page, chromium, webkit } from '@playwright/test';
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
@@ -30,3 +30,38 @@ test("test", async () => {
 
   console.log("sssd")
 })
+
+
+
+const URL = "https://demo.learnwebdriverio.com/register";
+const signUpBtn = '//button[contains(text(),"Sign up")]';
+
+function inputLocatorByPlaceholder(page: Page, placeholder: string) {
+  return page.locator(`//input[@placeholder="${placeholder}"]`);
+}
+
+function getValidationError(page: Page, fieldName: string) {
+  return page.locator(`//li[text()="${fieldName} can't be blank"]`);
+}
+
+test("Successful sign up ", async ({ page }) => {
+  const randomUsername = `user${Date.now()}`;
+  const randomEmail = `user${Date.now()}@gmail.com`;
+  const randomPassword = `Password${Date.now()}`;
+  const loggedInUserName = page.locator(`//a[@href="/@${randomUsername}/"]`);
+
+  await page.goto(URL);
+  await inputLocatorByPlaceholder(page, "Username").fill(randomUsername);
+  await inputLocatorByPlaceholder(page, "Email").fill(randomEmail);
+  await inputLocatorByPlaceholder(page, "Password").fill(randomPassword);
+  await page.locator(signUpBtn).click();
+
+  await expect(loggedInUserName).toHaveText(randomUsername);
+});
+
+test("Validation messages are shown during sign up with empty fields", async ({ page }) => {
+  await page.goto(URL);
+  await page.locator(signUpBtn).click();
+  await expect(getValidationError(page, "username")).toBeVisible();
+  await expect(getValidationError(page, "email")).toBeVisible();
+});

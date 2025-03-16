@@ -1,17 +1,14 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, Page } from '@playwright/test'
 
 const url = "https://demo.learnwebdriverio.com/";
 
 const getElements = (page) => ({
     registerButton: page.locator("//*[@href='/register']"),
-    userNameField: page.locator("//input[@placeholder='Username']"),
-    emailField: page.locator("//input[@placeholder='Email']"),
-    passwordField: page.locator("//input[@placeholder='Password']"),
     signUpButton: page.locator("//button[contains(text(),'Sign up')]"),
-    signInButton: page.locator("//button[contains(text(),'Sign up')]"),
+    signInButton: page.locator("//*[@href='login']"),
     accountButton: page.locator("//*[@class='nav-item']/*[starts-with(@href, '/@')]"),
-    userNameBlankErrorMessage: page.locator(`//*[text()="username can't be blank"]`),
-    emailBlankErrorMessage: page.locator(`//*[text()="email can't be blank"]`)
+    fieldValidationMessage: (fieldName: string) => page.locator(`//*[text()="${fieldName} can't be blank"]`),
+    signUpInputs: (placeholder: string) => page.locator(`//input[@placeholder="${placeholder}"]`),
 });
 
 function generateRandomID(length: number): string {
@@ -50,9 +47,9 @@ test("Sign up", async ({ page }) => {
     const element = getElements(page);
 
     await element.registerButton.click();
-    await element.userNameField.pressSequentially(username);
-    await element.emailField.pressSequentially(email);
-    await element.passwordField.pressSequentially(password);
+    await element.signUpInputs("Username").fill(username);
+    await element.signUpInputs("Email").fill(email);
+    await element.signUpInputs("Password").fill(password);
     await element.signUpButton.click();
 
     await expect(element.signInButton).not.toBeVisible();
@@ -68,6 +65,6 @@ test("sign up required fields", async ({ page }) => {
     await element.registerButton.click();
     await element.signUpButton.click();
 
-    await expect(element.userNameBlankErrorMessage).toBeVisible();
-    await expect(element.emailBlankErrorMessage).toBeVisible();
+    await expect(element.fieldValidationMessage("username")).toBeVisible();
+    await expect(element.fieldValidationMessage("email")).toBeVisible();
 });
