@@ -40,6 +40,7 @@ test("is zero entered", async () => {
 });
 
 
+
 function greetingInTime(time: number) {
     if (time >= 5 && time < 12) {
         return ("Good morning!");
@@ -53,7 +54,6 @@ function greetingInTime(time: number) {
         return ("Invalid time! Please enter a value between 0 and 24.");
     }
 }
-greetingInTime(5);
 
 test("morming greetings 5 am", async () => {
     const result = greetingInTime(5);
@@ -109,7 +109,7 @@ test("Good night greetings 4 am", async () => {
 
 function isTestPassed(evaluation: number) {
     if (evaluation >= 50 && evaluation <= 100) {
-        return ("Test Passed")
+        return ("Test Passed");
     } else if (evaluation >= 0 && evaluation < 50) {
         return ("Test Failed");
     } else {
@@ -117,7 +117,31 @@ function isTestPassed(evaluation: number) {
     }
 }
 
-isTestPassed(50);
+test("passed with 50 points", async () => {
+    const result = isTestPassed(50);
+    expect(result).toBe("Test Passed");
+});
+
+test("passed with 100 points", async () => {
+    const result = isTestPassed(100);
+    expect(result).toBe("Test Passed");
+});
+
+test("failed with 49 points", async () => {
+    const result = isTestPassed(49);
+    expect(result).toBe("Test Failed");
+});
+
+test("failed with 0 points", async () => {
+    const result = isTestPassed(0);
+    expect(result).toBe("Test Failed");
+});
+
+test("value is not valid", async () => {
+    const result = isTestPassed(101);
+    expect(result).toBe("The value is not valid");
+});
+
 
 
 function isVotingAgeTrue(age: number) {
@@ -127,7 +151,17 @@ function isVotingAgeTrue(age: number) {
         return ("You cannot vote");
     }
 }
-isVotingAgeTrue(17);
+
+test("age over 18", async () => {
+    const result = isVotingAgeTrue(18);
+    expect(result).toBe("You can vote");
+});
+
+test("age under 18", async () => {
+    const result = isVotingAgeTrue(17);
+    expect(result).toBe("You cannot vote");
+});
+
 
 
 function whichNumberIsGreater(a: number, b: number) {
@@ -140,6 +174,17 @@ function whichNumberIsGreater(a: number, b: number) {
     }
 }
 whichNumberIsGreater(8, 10);
+
+test("first number is larger", async () => {
+    const result = whichNumberIsGreater(10.1, 10);
+    expect(result).toBe("The first number is larger");
+});
+
+test("The second number is larger", async () => {
+    const result = whichNumberIsGreater(10, 10.001);
+    expect(result).toBe("The second number is larger");
+});
+
 
 
 function trafficLightColors(color: string) {
