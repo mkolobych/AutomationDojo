@@ -173,33 +173,56 @@ function whichNumberIsGreater(a: number, b: number) {
         return ("The numbers are equal");
     }
 }
-whichNumberIsGreater(8, 10);
 
 test("first number is larger", async () => {
     const result = whichNumberIsGreater(10.1, 10);
     expect(result).toBe("The first number is larger");
 });
 
-test("The second number is larger", async () => {
+test("second number is larger", async () => {
     const result = whichNumberIsGreater(10, 10.001);
     expect(result).toBe("The second number is larger");
+});
+
+test("numbers are equal", async () => {
+    const result = whichNumberIsGreater(11, 11);
+    expect(result).toBe("The numbers are equal");
 });
 
 
 
 function trafficLightColors(color: string) {
-    if (color == "green") {
+    if (color === "green") {
         return ("Go go");
-    } else if (color == "yellow") {
+    } else if (color === "yellow") {
         return ("get ready");
-    } else if (color == "red") {
+    } else if (color === "red") {
         return ("Stop");
     } else {
         return ("invalid value, please use the following: green, yellow, red");
     }
 }
 
-trafficLightColors("green");
+test("greenLight", async () => {
+    const result = trafficLightColors("green");
+    expect(result).toBe("Go go")
+});
+
+test("c", async () => {
+    const result = trafficLightColors("yellow");
+    expect(result).toBe("get ready");
+});
+
+test("redLight", async () => {
+    const result = trafficLightColors("red");
+    expect(result).toBe("Stop");
+});
+
+test("invalid value", async () => {
+    const result = trafficLightColors("1234");
+    expect(result).toBe("invalid value, please use the following: green, yellow, red")
+});
+
 
 
 function isTheNumberPositive(number: number) {
@@ -212,4 +235,18 @@ function isTheNumberPositive(number: number) {
     }
 
 }
-isTheNumberPositive(5);
+
+test("is number positive", async () => {
+    const result = isTheNumberPositive(1);
+    expect(result).toBe("The number is Positive");
+});
+
+test("is number Negative", async () => {
+    const result = isTheNumberPositive(-1);
+    expect(result).toBe("The number is Negative");
+});
+
+test("is number zero", async () => {
+    const result = isTheNumberPositive(0);
+    expect(result).toBe("Zero");
+});
