@@ -1,4 +1,5 @@
-import { test, expect, Page } from '@playwright/test'
+import { test, expect } from "@playwright/test"
+
 
 const url = "https://demo.learnwebdriverio.com/";
 
