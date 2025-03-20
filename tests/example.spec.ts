@@ -65,3 +65,4 @@ test("test", async () => {
 //   await expect(getValidationError(page, "username")).toBeVisible();
 //   await expect(getValidationError(page, "email")).toBeVisible();
 // });
+
