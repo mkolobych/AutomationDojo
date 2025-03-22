@@ -66,3 +66,6 @@ test("test", async () => {
 //   await expect(getValidationError(page, "email")).toBeVisible();
 // });
 
+//await expect(page.locator(`//*[@class="author"][contains(text(), "${username.toLocaleLowerCase()}")]`)).toBeVisible();
+
+
