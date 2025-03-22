@@ -1,4 +1,4 @@
-export { username, email, password }
+export { username, email, password, articleName }
 
 function generateRandomID(length: number): string {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -23,6 +23,11 @@ function generatePassword(): string {
     return generateRandomID(10);
 }
 
+function generateArticleName(): string {
+    return `Article:${generateRandomID(10)}`;
+}
+
 const username = generateUsername();
 const email = generateEmail();
 const password = generatePassword();
+const articleName = generateArticleName();
