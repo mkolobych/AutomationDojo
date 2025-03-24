@@ -33,38 +33,38 @@ test("test", async () => {
 
 
 
-// const URL = "https://demo.learnwebdriverio.com/register";
-// const signUpBtn = '//button[contains(text(),"Sign up")]';
+const URL = "https://demo.learnwebdriverio.com/register";
+const signUpBtn = '//button[contains(text(),"Sign up")]';
 
-// function inputLocatorByPlaceholder(page: Page, placeholder: string) {
-//   return page.locator(`//input[@placeholder="${placeholder}"]`);
-// }
+function inputLocatorByPlaceholder(page: Page, placeholder: string) {
+  return page.locator(`//input[@placeholder="${placeholder}"]`);
+}
 
-// function getValidationError(page: Page, fieldName: string) {
-//   return page.locator(`//li[text()="${fieldName} can't be blank"]`);
-// }
+function getValidationError(page: Page, fieldName: string) {
+  return page.locator(`//li[text()="${fieldName} can't be blank"]`);
+}
 
-// test("Successful sign up ", async ({ page }) => {
-//   const randomUsername = `user${Date.now()}`;
-//   const randomEmail = `user${Date.now()}@gmail.com`;
-//   const randomPassword = `Password${Date.now()}`;
-//   const loggedInUserName = page.locator(`//a[@href="/@${randomUsername}/"]`);
+test("Successful sign up ", async ({ page }) => {
+  const randomUsername = `user${Date.now()}`;
+  const randomEmail = `user${Date.now()}@gmail.com`;
+  const randomPassword = `Password${Date.now()}`;
+  const loggedInUserName = page.locator(`//a[@href="/@${randomUsername}/"]`);
 
-//   await page.goto(URL);
-//   await inputLocatorByPlaceholder(page, "Username").fill(randomUsername);
-//   await inputLocatorByPlaceholder(page, "Email").fill(randomEmail);
-//   await inputLocatorByPlaceholder(page, "Password").fill(randomPassword);
-//   await page.locator(signUpBtn).click();
+  await page.goto(URL);
+  await inputLocatorByPlaceholder(page, "Username").fill(randomUsername);
+  await inputLocatorByPlaceholder(page, "Email").fill(randomEmail);
+  await inputLocatorByPlaceholder(page, "Password").fill(randomPassword);
+  await page.locator(signUpBtn).click();
 
-//   await expect(loggedInUserName).toHaveText(randomUsername);
-// });
+  await expect(loggedInUserName).toHaveText(randomUsername);
+});
 
-// test("Validation messages are shown during sign up with empty fields", async ({ page }) => {
-//   await page.goto(URL);
-//   await page.locator(signUpBtn).click();
-//   await expect(getValidationError(page, "username")).toBeVisible();
-//   await expect(getValidationError(page, "email")).toBeVisible();
-// });
+test("Validation messages are shown during sign up with empty fields", async ({ page }) => {
+  await page.goto(URL);
+  await page.locator(signUpBtn).click();
+  await expect(getValidationError(page, "username")).toBeVisible();
+  await expect(getValidationError(page, "email")).toBeVisible();
+});
 
 //await expect(page.locator(`//*[@class="author"][contains(text(), "${username.toLocaleLowerCase()}")]`)).toBeVisible();
 
