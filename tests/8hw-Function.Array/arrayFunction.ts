@@ -42,3 +42,96 @@ function jounArrayElements(array: Array<string>, divider: string) {
 };
 const myColor = ["Red", "Green", "White", "Black"];
 console.log(jounArrayElements(myColor, "+"));
+
+
+//6️⃣ Дефіси між парними числами
+function addDashesBtwnEvens(input: number): string {
+    let numStr = input.toString();
+    let result = numStr[0]; // Починаємо з першої цифри
+
+    for (let i = 1; i < numStr.length; i++) {
+        if (+numStr[i] % 2 === 0 && +numStr[i - 1] % 2 === 0) {
+            result += "-"; // Додаємо дефіс між парними числами
+        }
+        result += numStr[i]; // Додаємо поточну цифру
+    }
+
+    return result;
+}
+
+console.log(addDashesBtwnEvens(161685961));
+
+
+//7️⃣ Сортування масиву
+function sortedArray(arr: number[]) {
+    const sortedArray: number[] = []; // Новий масив для відсортованих елементів
+
+    for (let num of arr) { // Проходимо по кожному елементу масиву
+        let i = 0;
+        while (i < sortedArray.length && sortedArray[i] < num) { // Шукаємо місце для вставки
+            i++;
+        }
+        sortedArray.splice(i, 0, num); // Вставляємо число в правильне місце
+    }
+
+    return sortedArray;
+}
+
+const arr1 = [-3, 8, 7, 6, 5, -4, 3, 2, 1];
+console.log(sortedArray(arr1));
+
+
+//8️⃣ Числа від 1 до 345
+function createArray(number: number) {
+    const newArray: number[] = [];
+    for (let i = 1; i <= number; i++) {
+        newArray.push(i);
+    };
+    return newArray;
+};
+console.log(createArray(345));
+
+
+//9️⃣Сума чисел від 1 до 100
+function sumOfnumbers(array: Array<number>) {
+    let sum: number = 0;
+    for (let num of array) {
+        sum += num;
+    };
+    return sum
+}
+
+const arrWithNumbers = [1, 2, 3, 4, 5];
+console.log(sumOfnumbers(arrWithNumbers));
+
+
+//🔟Числа від 241 до 1
+function createReverseArray(number: number) {
+    const newArray: number[] = [];
+
+    for (let i = number; i >= 1; i--) {
+        newArray.push(i);
+    }
+
+    return newArray;
+}
+
+console.log(createReverseArray(241));
+
+
+//1️⃣ 1️⃣ Максимальне число з двох
+function maxNumber(a: number, b: number) {
+    if (!Number.isInteger(a) || !Number.isInteger(b)) {
+        console.log("Будь ласка, введіть цілі числа.")
+    } else if (a > b) {
+        console.log(a);
+    } else if (a < b) {
+        console.log(b);
+    } else if (a === b) {
+        console.log("Обидва числа рівні")
+    };
+};
+
+maxNumber(2, 3)
+
+
