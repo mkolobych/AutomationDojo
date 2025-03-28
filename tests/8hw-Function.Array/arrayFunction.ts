@@ -135,3 +135,47 @@ function maxNumber(a: number, b: number) {
 maxNumber(2, 3)
 
 
+// Practice with Array's methods
+
+// перевірка чи Array
+function isArray(data: any) {
+    return Array.isArray(data);
+}
+console.log(isArray([2, 3, 4, 5, 8]));
+
+//Знайти всі парні числа у масиві
+function findAllEvenNumbers(array: Array<number>) {
+    return array.filter(n => n % 2 === 0); //
+}
+console.log(findAllEvenNumbers([2, 3, 4, 5, 8]));
+
+
+//Знайти суму всіх чисел у масиві
+function findSumOfArray(array: Array<number>) {
+    return array.reduce((sum, x) => sum + x, 0);
+}
+console.log(findSumOfArray([1, 2, 3]))
+
+
+//Перетворити масив чисел у масив їхніх квадратів
+function squareArray(array: Array<number>) {
+    return array.map(x => x ** 2);
+}
+console.log(squareArray([1, 2, 3]));
+
+
+//Перевірити, чи всі числа більше 5
+function allNumbersAreGreaterN(array: Array<number>, n: number) {
+    return array.every(x => x > n);
+}
+console.log(allNumbersAreGreaterN([9, 1], 5))
+
+
+//Перевірити, чи є хоча б одне число більше 5
+function oneNumberIsGreaterN(array: Array<number>, n: number) {
+    return array.some(x => x > n);
+}
+console.log(oneNumberIsGreaterN([1, 2, 3, 4, 5,], 3));
+
+
+
