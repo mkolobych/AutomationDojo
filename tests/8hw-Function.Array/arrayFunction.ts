@@ -177,5 +177,157 @@ function oneNumberIsGreaterN(array: Array<number>, n: number) {
 }
 console.log(oneNumberIsGreaterN([1, 2, 3, 4, 5,], 3));
 
+//перевернути масив
+function reverseArray(array: Array<number>) {
+    return [...array].reverse(); // [...original] Копія масиву
+};
+
+const randomArray = [1, 2, 3, 4, 5];
+console.log(reverseArray(randomArray))
+console.log(randomArray)
+
+//Знайти перше число більше 5
+function findFirstNumberGreaterThenN(array: Array<number>, num: number) {
+    return array.find(n => n > num)
+}
+const anyArray = [1, 4, 5, 6, 7, 8];
+console.log(findFirstNumberGreaterThenN(anyArray, 5));
+
+//Видалити дублікати з масиву
+function removeDuplicates(array: Array<number>) {
+    return [...new Set(array)];//new Set(arr) – створює Set, що містить лише унікальні значення.
+}
+const arrWithDublicate = [1, 2, 2, 3, 3, 4, 5, 5];
+console.log(removeDuplicates(arrWithDublicate));
 
 
+//скопіювати масив за допомогою sclice()
+function copyArray(array: Array<number>) {
+    return array.slice() //slice() – створює копію частини масиву, array.slice(0, 2) - [1, 2], array.slice(-3) - [4, 5, 5];
+}
+const originall = [1, 2, 2, 3, 3, 4, 5, 5];
+console.log(copyArray(originall))
+
+
+//видали елементи масиву
+function removeElementsOfArray(array: Array<number>) {
+    return array.splice(0, 2);
+}
+const anyArray1 = [1, 2, 3, 4, 5, 6];
+console.log(removeElementsOfArray(anyArray1)) // [1, 2];
+console.log(anyArray1);
+
+
+//розділити стрінгу з кількох слів на масив
+function stringToArray(str: string) {
+    return str.split(" ")
+}
+const anyString = "Marian Kolobych Stepanovych"
+console.log(stringToArray(anyString))// ["Marian", "Kolobych", "Stepanovych"]
+
+
+//Додати в кінець масиву едемент
+function addElement(arr: Array<unknown>, data: any) {
+    return arr.push(data) // додати елемент в кінець масиву
+}
+const anyArray2 = ["1", 2, 3, 4]
+console.log(addElement(anyArray2, "5"));
+console.log(anyArray2) //["1", 2, 3, 4, "5"]
+
+
+//видаляє останній елемент масиву
+function RemoveElement(arr: Array<unknown>) {
+    return arr.pop() //видаляє останні елемент масиву
+}
+const anyArray3 = ["1", 2, 3, 4]
+console.log(RemoveElement(anyArray3)) //4
+console.log(anyArray3) //["1", 2, 3]
+
+//додай перший елемент
+function addFirstElement(arr: Array<unknown>, data: any) {
+    return arr.unshift(data) //додає перший елемент
+}
+const anyArray4 = ["1", 2, 3, 4]
+console.log(addFirstElement(anyArray4, 5)) //5
+console.log(anyArray4) // [5,"1", 2, 3, 4]
+
+//видаляє видаляє перший елемент масиву
+function RemoveFirstElement(arr: Array<unknown>) {
+    return arr.shift() //видаляє видаляє перший елемент масиву
+}
+const anyArray5 = ["1", 2, 3, 4]
+console.log(RemoveFirstElement(anyArray5)) //"1"
+console.log(anyArray5) //[2, 3, 4]
+
+//повернути кожний елемент масиву 
+function returnElement(arr: number[]): number[] {
+    arr.forEach(num => console.log(num)); // Виводить елементи масиву
+    return arr; // Повертає масив
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const result = returnElement(numbers);
+
+console.log(result);
+
+
+// повернути індекс елемента
+function returnIndexOfElement(arr: Array<number>, index: number) {
+    return arr.indexOf(index);
+}
+const array5 = [1, 2, 3, 4, 5, 6];
+console.log(returnIndexOfElement(array5, 5)) //4
+
+
+// сортує елементи масиву
+function sortArray(arr: number[]) {
+    return arr.sort((a, b) => a - b); // Сортує масив за зростанням
+}
+const array6 = [5, 3, 6, 1, 4, 2];
+console.log(sortArray(array6)); // [1, 2, 3, 4, 5, 6]
+
+
+// Знайти найбільше число в масиві
+function findMax1(arr: number[]) {
+    return Math.max(...arr)// знайти максимальне значення масву, Math.min(...arr) знайти мінімальне значення
+}
+const array2 = [1, 2, 3, 4, 5]
+console.log(findMax1(array2))
+
+
+//Напиши функцію, яка приймає масив чисел і повертає їхню суму.
+function sumArray(arr: number[]) {
+    return arr.reduce((sum, x) => sum + x, 0);
+}
+const array01 = [1, 2, 3, 4, 5]
+console.log(sumArray(array01))
+
+
+//Підрахувати кількість парних чисел у масиві
+function countEvenNumbers(arr: number[]) {
+    return arr.filter(n => n % 2 === 0).length;
+}
+// ✅ filter().length – для підрахунку кількості парних чисел.
+// ✅ filter().reduce() – якщо треба порахувати суму парних чисел
+
+const array04 = [1, 2, 3, 4, 5]
+console.log(countEvenNumbers(array04));
+
+
+//Об'єднати два масиви без повторен
+//Напиши функцію, яка приймає два масиви і повертає один об'єднаний масив, у якому немає дублікатів.
+function mergeUnique(arr1: Array<unknown>, arr2: Array<unknown>) {
+    const contactArray = arr1.concat(arr2);
+    return [...new Set(contactArray)]
+}
+const arrOne = [1, 3, 4, 5, 6, 7, 8, "a"];
+const arrTwo = [1, 3, "a", "b"]
+console.log(mergeUnique(arrOne, arrTwo));
+
+
+//Перетворити масив чисел у масив їхніх квадратів
+function squareNumbers(arr: number[]) {
+    return arr.map(x => x ** 2)
+}
+const array06 = [1, 2, 3, 4, 5, 5, 6, 7]
+console.log(squareNumbers(array06));

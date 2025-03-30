@@ -79,7 +79,6 @@ async function verifyUserData(page: Page, data: any) {
     };
 };
 
-// Використовуємо стабільні значення в тести
 for (const data of formData) {
     test(`${data.id} - fill form with random data`, async ({ page }) => {
         const element = elements(page);
