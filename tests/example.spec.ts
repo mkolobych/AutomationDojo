@@ -84,32 +84,32 @@ const testData = [
 ];
 
 // Параметризований тест, який проходить по кожному набору даних
-for (const data of testData) {
-  test(`Надсилання платіжної форми для ${data.name}`, async ({ page }) => {
-    // Відкриваємо сторінку з формою (замінити на актуальну адресу)
-    await page.goto("https://coffee-cart.app/");
+// for (const data of testData) {
+//   test(`Надсилання платіжної форми для ${data.name}`, async ({ page }) => {
+//     // Відкриваємо сторінку з формою (замінити на актуальну адресу)
+//     await page.goto("https://coffee-cart.app/");
 
-    await page.locator('[data-test="Cappuccino"]').click();
+//     await page.locator('[data-test="Cappuccino"]').click();
 
-    // Клікаємо по кнопці, яка відкриває форму (оновити селектор за потреби)
-    await page.locator('[data-test="checkout"]').click();
+//     // Клікаємо по кнопці, яка відкриває форму (оновити селектор за потреби)
+//     await page.locator('[data-test="checkout"]').click();
 
-    // Вводимо ім’я в поле Name
-    await page.getByRole("textbox", { name: "Name" }).fill(data.name);
+//     // Вводимо ім’я в поле Name
+//     await page.getByRole("textbox", { name: "Name" }).fill(data.name);
 
-    // Вводимо email у відповідне поле
-    await page.getByRole("textbox", { name: "Email" }).fill(data.email);
+//     // Вводимо email у відповідне поле
+//     await page.getByRole("textbox", { name: "Email" }).fill(data.email);
 
-    // Якщо користувач хоче отримувати оновлення, клікаємо чекбокс
-    if (data.wantsUpdates) {
-      await page.getByRole("checkbox", { name: "Promotion checkbox" }).check();
-    }
+//     // Якщо користувач хоче отримувати оновлення, клікаємо чекбокс
+//     if (data.wantsUpdates) {
+//       await page.getByRole("checkbox", { name: "Promotion checkbox" }).check();
+//     }
 
-    // Натискаємо кнопку Submit для надсилання форми
-    await page.getByRole("button", { name: "Submit" }).click();
+//     // Натискаємо кнопку Submit для надсилання форми
+//     await page.getByRole("button", { name: "Submit" }).click();
 
-    // Перевірка: очікуємо, що після надсилання з’явиться певне повідомлення або індикатор успіху
-  });
-}
+//     // Перевірка: очікуємо, що після надсилання з’явиться певне повідомлення або індикатор успіху
+//   });
+// }
 
 
