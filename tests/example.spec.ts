@@ -7,6 +7,7 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/Playwright/);
 });
 
+
 test('get started link', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
@@ -16,6 +17,7 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
 
 test("test", async () => {
   const browser = await chromium.launch({ headless: false }); // запускає бравзер Сromium (firefox, webkit..etc ); параметр, що вимикає безголовий режим (headless mode), тобто браузер відкриється з графічним інтерфейсом, як звичайний браузер.
@@ -28,7 +30,7 @@ test("test", async () => {
   const page1 = await context.newPage();
   const page2 = await context.newPage();
 
-  console.log("sssd")
+  console.log("")
 })
 
 
@@ -67,10 +69,6 @@ test("Validation messages are shown during sign up with empty fields", async ({ 
 });
 
 //await expect(page.locator(`//*[@class="author"][contains(text(), "${username.toLocaleLowerCase()}")]`)).toBeVisible();
-
-
-
-
 
 /*
  Масив тестових даних для параметризованого запуску
