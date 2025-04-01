@@ -7,6 +7,7 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/Playwright/);
 });
 
+
 test('get started link', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
@@ -16,6 +17,7 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
 
 test("test", async () => {
   const browser = await chromium.launch({ headless: false }); // запускає бравзер Сromium (firefox, webkit..etc ); параметр, що вимикає безголовий режим (headless mode), тобто браузер відкриється з графічним інтерфейсом, як звичайний браузер.
@@ -28,7 +30,7 @@ test("test", async () => {
   const page1 = await context.newPage();
   const page2 = await context.newPage();
 
-  console.log("sssd")
+  console.log("")
 })
 
 
@@ -68,10 +70,6 @@ test("Validation messages are shown during sign up with empty fields", async ({ 
 
 //await expect(page.locator(`//*[@class="author"][contains(text(), "${username.toLocaleLowerCase()}")]`)).toBeVisible();
 
-
-
-
-
 /*
  Масив тестових даних для параметризованого запуску
 
@@ -83,33 +81,33 @@ const testData = [
   { name: "Оксана Шевченко", email: "oksana@example.com", wantsUpdates: false },
 ];
 
-// Параметризований тест, який проходить по кожному набору даних
-// for (const data of testData) {
-//   test(`Надсилання платіжної форми для ${data.name}`, async ({ page }) => {
-//     // Відкриваємо сторінку з формою (замінити на актуальну адресу)
-//     await page.goto("https://coffee-cart.app/");
+//Параметризований тест, який проходить по кожному набору даних
+for (const data of testData) {
+  test(`Надсилання платіжної форми для ${data.name}`, async ({ page }) => {
+    // Відкриваємо сторінку з формою (замінити на актуальну адресу)
+    await page.goto("https://coffee-cart.app/");
 
-//     await page.locator('[data-test="Cappuccino"]').click();
+    await page.locator('[data-test="Cappuccino"]').click();
 
-//     // Клікаємо по кнопці, яка відкриває форму (оновити селектор за потреби)
-//     await page.locator('[data-test="checkout"]').click();
+    // Клікаємо по кнопці, яка відкриває форму (оновити селектор за потреби)
+    await page.locator('[data-test="checkout"]').click();
 
-//     // Вводимо ім’я в поле Name
-//     await page.getByRole("textbox", { name: "Name" }).fill(data.name);
+    // Вводимо ім’я в поле Name
+    await page.getByRole("textbox", { name: "Name" }).fill(data.name);
 
-//     // Вводимо email у відповідне поле
-//     await page.getByRole("textbox", { name: "Email" }).fill(data.email);
+    // Вводимо email у відповідне поле
+    await page.getByRole("textbox", { name: "Email" }).fill(data.email);
 
-//     // Якщо користувач хоче отримувати оновлення, клікаємо чекбокс
-//     if (data.wantsUpdates) {
-//       await page.getByRole("checkbox", { name: "Promotion checkbox" }).check();
-//     }
+    // Якщо користувач хоче отримувати оновлення, клікаємо чекбокс
+    if (data.wantsUpdates) {
+      await page.getByRole("checkbox", { name: "Promotion checkbox" }).check();
+    }
 
-//     // Натискаємо кнопку Submit для надсилання форми
-//     await page.getByRole("button", { name: "Submit" }).click();
+    // Натискаємо кнопку Submit для надсилання форми
+    await page.getByRole("button", { name: "Submit" }).click();
 
-//     // Перевірка: очікуємо, що після надсилання з’явиться певне повідомлення або індикатор успіху
-//   });
-// }
+    // Перевірка: очікуємо, що після надсилання з’явиться певне повідомлення або індикатор успіху
+  });
+}
 
 
