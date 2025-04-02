@@ -111,3 +111,18 @@ for (const data of testData) {
 }
 
 
+const response = {
+  status: "success",
+  data: {
+    'some users': [
+      {
+        name: 'Alex',
+        age: 33,
+      },
+      {
+        name: 'Vlad',
+        age: 30
+      }
+    ]
+  }
+}
